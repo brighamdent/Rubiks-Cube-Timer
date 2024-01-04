@@ -10,7 +10,7 @@ import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scrambl
 
 
 function App() {
-  const [time,setTime] = useState()
+  const [time,setTime] = useState(0)
   const [times,setTimes] = useState([])
   const [prevTime,setPrevTime] = useState(0)
   const [isRunning,setIsRunning] = useState(false)
