@@ -25,7 +25,7 @@ function App() {
   const [lockTime,setLockTime] = useState(0)
   const [isLocked,setIsLocked] = useState(false)
   const [isStopped,setIsStopped] = useState(false)
-  const [i,setI] = useState(false)
+  
 
   useEffect(()=> {
     console.log(localStorage)
