@@ -198,7 +198,7 @@ useEffect(() => {
 
 if (el) {
   el.scrollTop = el.scrollHeight;
-}},[times])
+}},[times.length])
 
 
 const handleChange = (event) => {
@@ -263,7 +263,7 @@ const handleLast = () => {
             
           {times && times.map((time,index) =>
           
-          <Modal times={times} setTimes={setTimes} time={time} index={index} i={i} setI={setI}></Modal>
+          <Modal times={times} setTimes={setTimes} time={time} index={index}></Modal>
           )} 
           {times.length > 2 && <p>Running Average: {useGetAverage(times,times.length-1,times.length)}</p>}
           </div>
