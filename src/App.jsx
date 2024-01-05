@@ -16,7 +16,7 @@ function App() {
   const [prevTime,setPrevTime] = useState(0)
   const [isRunning,setIsRunning] = useState(false)
   const [greenbar,setGreenbar] = useState(false)
-  const [event,setEvent] = useState('333')
+  const [events,setEvents] = useState(['333','333','333'])
   const [currScramble,setCurrScramble] = useState('')
   const [startTime,setStartTime] = useState()
   const [redbar,setRedbar] = useState(false)
@@ -190,7 +190,7 @@ const useScrambler = async () => {
   if (currScramble === prevScramble){
     setCurrScramble(nextScramble)
   } else{
-  const newScramble = (await randomScrambleForEvent(event)).toString();
+  const newScramble = (await randomScrambleForEvent(events[currSession])).toString();
   setCurrScramble(newScramble); 
   setNextScramble(newScramble)
   }
@@ -204,7 +204,7 @@ const useScrambler = async () => {
    
    
 
-},[prevTime,event])
+},[prevTime,events[currSession]])
 
 
 useEffect(() => {
@@ -215,8 +215,14 @@ if (el) {
 }},[times[currSession].length,currSession])
 
 
-const handleChange = (event) => {
-     setEvent(event.target.value)
+const handleChange = (e) => {
+     setEvents(events.map((event,index) => {
+      if(index == currSession){
+        return e.target.value
+      } else return event
+     })
+      
+      )
      setCurrScramble(nextScramble)
 }
 
@@ -251,7 +257,7 @@ const handleSession = (e) => {
         <button className={prevScramble ? 'scramble-buttons' : 'scramble-buttons last'} onClick={handleLast}>Last</button>
          <h1 className= {scrambleSize} >{currScramble}</h1> 
          <button className='scramble-buttons' onClick={useScrambler}>Next</button>
-         <select  className='event' value={event} onChange={handleChange} >
+         <select  className='event' value={events[currSession]} onChange={handleChange} >
           <option value='333' >3x3</option>
           <option value='222'>2x2</option>
           <option value='444'>4x4</option>
