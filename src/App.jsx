@@ -11,7 +11,8 @@ import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scrambl
 
 function App() {
   const [time,setTime] = useState(0)
-  const [times,setTimes] = useState([])
+  const [times,setTimes] = useState([[],[],[]])
+  const [currSession,setCurrSession] = useState(0)
   const [prevTime,setPrevTime] = useState(0)
   const [isRunning,setIsRunning] = useState(false)
   const [greenbar,setGreenbar] = useState(false)
@@ -28,31 +29,35 @@ function App() {
   const [i,setI] = useState(false)
 
   useEffect(()=> {
-    console.log(localStorage)
-    const timesData = JSON.parse(localStorage.getItem('times'))
     
+    const timesData = JSON.parse(localStorage.getItem('times'))
+    console.log(`timesData ${timesData}`)
     if(timesData != null) setTimes(timesData)
    
   },[])
  
   useEffect(()=> {
 
-    if(i >= 1){
+    if(i == true){
     localStorage.setItem('times',JSON.stringify(times));
     
     }
     setI(true)
+    console.log(localStorage)
+    console.log(times)
   },[times])
   
-  
+ 
   useEffect(() => {
     let intervalId;
      if(isRunning){ 
      intervalId = setInterval(()=> setTime(Number(((new Date().valueOf())- startTime).toString().slice(0,-1))),1);
      }
      return () => clearInterval(intervalId);
-              
+
     },[isRunning,time])
+
+  
 
 
 const handleStart = () => {
@@ -61,8 +66,15 @@ const handleStart = () => {
 }
 
 const handleStop = () => {
-  setIsRunning(false) 
-  setTimes([...times,{id: uuidv4(), time:time, scramble:currScramble, dnf:false, plusTwo: false, oldValue: 'DNF'}])
+  console.log(times)
+  setIsRunning(false)
+  const newTimes = times.map((t,index) =>{
+    if(index == currSession){
+      console.log('hi')
+      return [...times[index],{id: uuidv4(), time:time, scramble:currScramble, dnf:false, plusTwo: false, oldValue: 'DNF'}]
+  } else { return t}
+  }) 
+  setTimes(newTimes)
     setPrevTime(time)
   setTime(0)
   setGreenbar(false) 
@@ -73,13 +85,16 @@ const handleStop = () => {
 
 const deleteTimesHandler = () => {
   if(confirm('Are you sure you want to delete all times from this session?')){
-
+  setTimes(times.map(t => {if(t == times[currSession]){
+    return []
+  } else return t
+}))
   
-  setTimes([])
+  
   setTime(0)
   setPrevTime(0)
   setIsRunning(false)
-  localStorage.clear()
+  
   }
 }
 
@@ -198,7 +213,7 @@ useEffect(() => {
 
 if (el) {
   el.scrollTop = el.scrollHeight;
-}},[times.length])
+}},[times])
 
 
 const handleChange = (event) => {
@@ -221,6 +236,12 @@ const handleLast = () => {
     setPrevScramble()
   }
 }
+
+const handleSession = (e) => {
+  setCurrSession(e.target.value)
+  console.log(currSession)
+}
+
 
 
   return (
@@ -248,10 +269,15 @@ const handleLast = () => {
          <div>{isRunning || greenbar ? <div className={isRunning ? 'time-running': 'time-running green'}>{timeFormatter(time)}</div>: 
          <div className= {greenbar ? 'time green'  : redbar ? 'time red' :   'time'}>{timeFormatter(prevTime)}</div>}</div>
          <div className={isRunning || greenbar ? 'hide':'block-container'}>
-         <h1 className='center-average' >Ao5: {useGetAverage(times,times.length - 1,5)}</h1> 
-         <h1 className='center-average12' >Ao12: {useGetAverage(times,times.length - 1,12)}</h1> 
+         <h1 className='center-average' >Ao5: {useGetAverage(currSession,times,times.length - 1,5)}</h1> 
+         <h1 className='center-average12' >Ao12: {useGetAverage(currSession,times,times.length - 1,12)}</h1> 
          <div className='outer-container'>
-          <span>TIMES | </span>
+          <span>Session | </span>
+          <select value={currSession} onChange={handleSession} >
+            <option value="0">1</option>
+            <option value="1">2</option>
+            <option value="2">3</option>
+          </select>
           <button className='buttons' onClick={deleteTimesHandler}>❌</button>
           <div className='time-flex '>
               <p>#</p>
@@ -261,14 +287,15 @@ const handleLast = () => {
               </div>
           <div id= 'times-container'className='times-container'>
             
-          {times && times.map((time,index) =>
+          {times[currSession] && times[currSession].map((time,index) =>
           
-          <Modal times={times} setTimes={setTimes} time={time} index={index}></Modal>
+          <Modal currSession={currSession} times={times} setTimes={setTimes} time={time} index={index}></Modal>
           )} 
-          {times.length > 2 && <p>Running Average: {useGetAverage(times,times.length-1,times.length)}</p>}
+          {times[currSession].length > 2 && <p>Running Average: {useGetAverage(currSession,times,times[currSession].length-1,times[currSession].length)}</p>}
           </div>
           </div>
           </div>
+          {/* <button onClick={localStorage.clear()}>Clear cache</button> */}
     </div>
     
   )
