@@ -31,21 +31,20 @@ function App() {
   useEffect(()=> {
     
     const timesData = JSON.parse(localStorage.getItem('times'))
-    console.log(`timesData ${timesData}`)
+    const sessionData = JSON.parse(localStorage.getItem('session'))
     if(timesData != null) setTimes(timesData)
-   
+    if(sessionData != null) setCurrSession(sessionData)
   },[])
  
   useEffect(()=> {
 
     if(i == true){
     localStorage.setItem('times',JSON.stringify(times));
-    
+    localStorage.setItem('session',JSON.stringify(currSession))
     }
     setI(true)
     console.log(localStorage)
-    console.log(times)
-  },[times])
+  },[times,currSession])
   
  
   useEffect(() => {
@@ -92,7 +91,7 @@ const deleteTimesHandler = () => {
   
   
   setTime(0)
-  setPrevTime(0)
+  
   setIsRunning(false)
   
   }
