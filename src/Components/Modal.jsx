@@ -2,10 +2,8 @@ import React, {useState,useEffect} from 'react';
 import '../modal.css'
 import { useGetAverage } from '../hooks/useGetAverage';
 import { timeFormatter } from '../hooks/useTimeFormatter';
-export const Modal = ({times,setTimes,time,index}) => {
+export const Modal = ({currSession,times,setTimes,time,index}) => {
     const [modal,setModal] = useState(false)
-
-
 
     const toggleModal = () => {
         setModal(!modal)
@@ -13,7 +11,7 @@ export const Modal = ({times,setTimes,time,index}) => {
       } 
 
       const handleDnf = () => {
-        const newState = times.map(t =>{
+        const newState = times[currSession].map(t =>{
           if(t.id == time.id){
         let value;
         if(time.dnf == false){
@@ -32,8 +30,12 @@ export const Modal = ({times,setTimes,time,index}) => {
           }
           return t
         } )
-
-        setTimes(newState)
+        
+        setTimes(times.map(t =>{
+          if(t == times[currSession]){
+            return newState
+          } else return t
+        }))
         
         
       }
@@ -47,7 +49,7 @@ export const Modal = ({times,setTimes,time,index}) => {
           if(time.plusTwo == false){
             num = 200
           } else num = -200
-            const newState = times.map(t =>{
+            const newState = times[currSession].map(t =>{
               if(t.id == time.id){
                 return{...t, time: value + num, plusTwo:!time.plusTwo, dnf: false, oldValue:'DNF'} 
 
@@ -55,16 +57,23 @@ export const Modal = ({times,setTimes,time,index}) => {
               return t
             } )
 
-            setTimes(newState)
+            setTimes(times.map(t =>{
+              if(t == times[currSession]){
+                return newState
+              } else return t
+            }))
            
           }
 
           const deleteHandler = (id) => {
             if(confirm('Are you sure you want to delete this time?')){
-            // localStorage.removeItem(`PlusTwo ${time.id}`);
-            // localStorage.removeItem(`DNF ${time.id}`);
-            // localStorage.removeItem(`OldValue ${time.id}`)
-            setTimes(times.filter(time => time.id !== id ))
+            setTimes(
+              times.map(session =>{
+                if(session == times[currSession]){
+                  return session.filter(t => t.id !== id )
+                } else return session
+              })
+              )
             setModal(!modal)
             ;
           }
@@ -79,7 +88,7 @@ export const Modal = ({times,setTimes,time,index}) => {
           <div className='time-flex time-list-item' onClick={toggleModal} >  
             
             <p className='flexbox-item' key={index}>{index + 1}. </p><p className='flexbox-item' > {timeFormatter(time.time)} </p>
-             <p className='flexbox-item' >{useGetAverage(times,index,5)}</p><p className='flexbox-item' >{useGetAverage(times,index,12)}</p>
+             <p className='flexbox-item' >{useGetAverage(currSession,times,index,5)}</p><p className='flexbox-item' >{useGetAverage(currSession,times,index,12)}</p>
           
              </div> 
 
@@ -93,8 +102,8 @@ export const Modal = ({times,setTimes,time,index}) => {
         <h1>Solve # {index+1}. | {timeFormatter(time.time)} </h1>
         <h1 className={time.dnf ? '': 'hide'}> ({timeFormatter(time.oldValue)})</h1>
         </div>
-        <h2>Ao5: {useGetAverage(times,index,5)}</h2>
-        <h2>Ao12: {useGetAverage(times,index,12)}</h2>
+        <h2>Ao5: {useGetAverage(currSession,times,index,5)}</h2>
+        <h2>Ao12: {useGetAverage(currSession,times,index,12)}</h2>
         <p className='modal-scramble'>{time.scramble}</p>
         <div className='modifier-buttons'>
         <button className={time.dnf ? 'modifier-button active': 'modifier-button'} onClick={handleDnf}>DNF</button>

@@ -1,6 +1,6 @@
 import { timeFormatter } from "./useTimeFormatter"
 
- export   const useGetAverage = (times,index,averageOf) => {
+ export   const useGetAverage = (currSession,times,index,averageOf) => {
                 let total = 0
                 let worst = 0
                 let best = Infinity
@@ -10,7 +10,8 @@ import { timeFormatter } from "./useTimeFormatter"
                 let i= 0;
                 let dnfCount = 0; 
                 while(i <= averageOf-1){
-                    let currTime = times[index - i].time
+                    
+                    let currTime = times[currSession][index - i].time
                     
                     if (currTime == 'DNF'){
                         
@@ -44,4 +45,5 @@ import { timeFormatter } from "./useTimeFormatter"
                 
                 total = total - best - worst
                 return(timeFormatter(Math.round(total/(averageOf-2))))
+               
                 }
