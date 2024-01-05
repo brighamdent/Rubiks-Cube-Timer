@@ -32,19 +32,26 @@ function App() {
     
     const timesData = JSON.parse(localStorage.getItem('times'))
     const sessionData = JSON.parse(localStorage.getItem('session'))
+    const eventsData = JSON.parse(localStorage.getItem('events'))
+    console.log(`prevEventData: ${eventsData}`)
+    console.log(`timesData: ${timesData}`)
     if(timesData != null) setTimes(timesData)
     if(sessionData != null) setCurrSession(sessionData)
+    if(eventsData != null) setEvents(['333','333','333'])
   },[])
  
   useEffect(()=> {
-
+    
     if(i == true){
     localStorage.setItem('times',JSON.stringify(times));
-    localStorage.setItem('session',JSON.stringify(currSession))
+    localStorage.setItem('session',JSON.stringify(currSession));
+    localStorage.setItem('events',JSON.stringify(events))
     }
+    
     setI(true)
-    console.log(localStorage)
-  },[times,currSession])
+    console.log(localStorage.getItem('events'))
+    
+  },[times,currSession,events])
   
  
   useEffect(() => {
@@ -274,11 +281,12 @@ const handleSession = (e) => {
          <div>{isRunning || greenbar ? <div className={isRunning ? 'time-running': 'time-running green'}>{timeFormatter(time)}</div>: 
          <div className= {greenbar ? 'time green'  : redbar ? 'time red' :   'time'}>{timeFormatter(prevTime)}</div>}</div>
          <div className={isRunning || greenbar ? 'hide':'block-container'}>
-         <h1 className='center-average' >Ao5: {useGetAverage(currSession,times,times.length - 1,5)}</h1> 
-         <h1 className='center-average12' >Ao12: {useGetAverage(currSession,times,times.length - 1,12)}</h1> 
+         <h1 className='center-average' >Ao5: {useGetAverage(currSession,times,times[currSession].length - 1,5)}</h1> 
+         <h1 className='center-average12' >Ao12: {useGetAverage(currSession,times,times[currSession].length - 1,12)}</h1> 
          <div className='outer-container'>
           <span>Session | </span>
           <select value={currSession} onChange={handleSession} >
+            
             <option value="0">1</option>
             <option value="1">2</option>
             <option value="2">3</option>
@@ -306,4 +314,4 @@ const handleSession = (e) => {
   )
 }
 
-export default App
+export default App         
