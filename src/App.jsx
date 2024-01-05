@@ -213,7 +213,7 @@ useEffect(() => {
 
 if (el) {
   el.scrollTop = el.scrollHeight;
-}},[times])
+}},[times[currSession].length,currSession])
 
 
 const handleChange = (event) => {
