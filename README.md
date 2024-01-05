@@ -1,8 +1,2 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Rubik's Cube Timer
+SpeedCubing is competitive take on solving the Rubik's cube. The Goal is to solve the cube as quickly as possible. This Project is a tool for those who train for speedcubing like myself. This Project is a Rubik's cube timer. As of today the project include many of the needed features to train such as Random-State scrambles where required by the World Cube Association, DNF and +2 buttons for incomplete solves, diffent session options, average of 5 and average of 12 stats(excluding best and worst solves), and proper timer locking.
