@@ -289,7 +289,7 @@ const handleSession = (e) => {
             
           {times[currSession] && times[currSession].map((time,index) =>
           
-          <Modal currSession={currSession} times={times} setTimes={setTimes} time={time} index={index}></Modal>
+          <Modal key={time.id} currSession={currSession} times={times} setTimes={setTimes} time={time} index={index}></Modal>
           )} 
           {times[currSession].length > 2 && <p>Running Average: {useGetAverage(currSession,times,times[currSession].length-1,times[currSession].length)}</p>}
           </div>
