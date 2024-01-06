@@ -11,12 +11,12 @@ import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scrambl
 
 function App() {
   const [time,setTime] = useState(0)
-  const [times,setTimes] = useState([[],[],[]])
+  const [times,setTimes] = useState([[],[],[],[]])
   const [currSession,setCurrSession] = useState(0)
   const [prevTime,setPrevTime] = useState(0)
   const [isRunning,setIsRunning] = useState(false)
   const [greenbar,setGreenbar] = useState(false)
-  const [events,setEvents] = useState(['333','333','333'])
+  const [events,setEvents] = useState(['333','333','333','333'])
   const [currScramble,setCurrScramble] = useState('')
   const [startTime,setStartTime] = useState()
   const [redbar,setRedbar] = useState(false)
@@ -34,10 +34,11 @@ function App() {
     const sessionData = JSON.parse(localStorage.getItem('session'))
     const eventsData = JSON.parse(localStorage.getItem('events'))
     console.log(`prevEventData: ${eventsData}`)
-    console.log(`timesData: ${timesData}`)
+    console.log(`prevTimesData: ${timesData}`)
+    console.log(`prevSessionData ${sessionData}`)
     if(timesData != null) setTimes(timesData)
     if(sessionData != null) setCurrSession(sessionData)
-    if(eventsData != null) setEvents(['333','333','333'])
+    if(eventsData != null) setEvents(eventsData)
   },[])
  
   useEffect(()=> {
@@ -47,9 +48,12 @@ function App() {
     localStorage.setItem('session',JSON.stringify(currSession));
     localStorage.setItem('events',JSON.stringify(events))
     }
+    console.log(times)
+    console.log(events)
+    console.log(`Active: ${localStorage.getItem('session')}`)
     
     setI(true)
-    console.log(localStorage.getItem('events'))
+    console.log(currSession)
     
   },[times,currSession,events])
   
@@ -63,7 +67,7 @@ function App() {
 
     },[isRunning,time])
 
-  
+
 
 
 const handleStart = () => {
@@ -72,11 +76,11 @@ const handleStart = () => {
 }
 
 const handleStop = () => {
-  console.log(times)
+  
   setIsRunning(false)
   const newTimes = times.map((t,index) =>{
     if(index == currSession){
-      console.log('hi')
+      
       return [...times[index],{id: uuidv4(), time:time, scramble:currScramble, dnf:false, plusTwo: false, oldValue: 'DNF'}]
   } else { return t}
   }) 
@@ -223,6 +227,8 @@ if (el) {
 
 
 const handleChange = (e) => {
+    
+
      setEvents(events.map((event,index) => {
       if(index == currSession){
         return e.target.value
@@ -234,13 +240,13 @@ const handleChange = (e) => {
 }
 
 
-useEffect(() => {
-  if(currScramble.length >= 175){
-    setScrambleSize('scramble small')
-   } else{
-    setScrambleSize('scramble')
-   }
-},[currScramble])
+// useEffect(() => {
+//   if(currScramble.length >= 175){
+//     setScrambleSize('scramble small')
+//    } else{
+//     setScrambleSize('scramble')
+//    }
+// },[currScramble])
 
 const handleLast = () => {
   if(prevScramble){
@@ -250,8 +256,13 @@ const handleLast = () => {
 }
 
 const handleSession = (e) => {
+  if(e.target.value == 'new'){
+    setTimes([...times,[]])
+    setEvents([...events,'333'])
+    setCurrSession(times.length)
+  }else{ 
   setCurrSession(e.target.value)
-  console.log(currSession)
+  }
 }
 
 
@@ -286,10 +297,11 @@ const handleSession = (e) => {
          <div className='outer-container'>
           <span>Session | </span>
           <select value={currSession} onChange={handleSession} >
+            {times.map((t,index) =>
+              <option value={index}>{index+1}</option>
+            )}
+            <option value='new' >New</option>
             
-            <option value="0">1</option>
-            <option value="1">2</option>
-            <option value="2">3</option>
           </select>
           <button className='buttons' onClick={deleteTimesHandler}>❌</button>
           <div className='time-flex '>
@@ -308,7 +320,7 @@ const handleSession = (e) => {
           </div>
           </div>
           </div>
-          {/* <button onClick={localStorage.clear()}>Clear cache</button> */}
+        {/* <button onClick={localStorage.clear()}>Clear cache</button> */}
     </div>
     
   )
