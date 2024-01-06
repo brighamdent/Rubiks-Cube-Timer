@@ -24,7 +24,7 @@ body{
 .times-container{
   
   width:100%;
-  height: 53vh;
+  height: 52vh;
   overflow: scroll;
 }
 .times-container::-webkit-scrollbar {
@@ -103,21 +103,21 @@ body{
 }
 
 .center-average{
-  justify-content: center;
+  /* justify-content: center;
   position:absolute;
   left:50%;
   top: 30%;
-  transform: translate(-50%,0);
-  display: inline-block;
+  transform: translate(-50%,0); */
+  
   font-size: 500%;
 }
 
 .center-average12{
-  justify-content: center;
+  /* justify-content: center;
   position:absolute;
   left:50%;
   top: 50%;
-  transform: translate(-50%,0);
+  transform: translate(-50%,0); */
   
   font-size: 500%;
 }
@@ -183,22 +183,40 @@ body{
   background-color: rgb(252, 200, 137);
 }
 
-@media only screen and (max-width: 900px) {
+/* @media only screen and (max-width: 1000px) {
   .center-average,.center-average12 {
       display: none;
-  }
-  .times-container,.outer-container{
-    position: absolute;
+      
+  } */
+ /* .outer-container{
+    position:relative;
     left:50%;
   
   transform: translate(-50%,0);
-  }
-}
+  } */
+/* }
 
 @media only screen and (max-height: 475px) {
   .center-average,.center-average12 {
       display: none;
   }
  
+} */
+.averages-container{
+  margin-right:  100px;
 }
 
+.block-container{
+  display: flex;
+  align-items: center;
+  
+  gap: 18vw
+}
+
+.sessions{
+  border-radius: 5px;
+  color: white;
+  background-color:rgb(214, 167, 106);
+
+  border-color: transparent;
+}

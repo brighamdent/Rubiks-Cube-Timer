@@ -292,18 +292,15 @@ const handleSession = (e) => {
          <div>{isRunning || greenbar ? <div className={isRunning ? 'time-running': 'time-running green'}>{timeFormatter(time)}</div>: 
          <div className= {greenbar ? 'time green'  : redbar ? 'time red' :   'time'}>{timeFormatter(prevTime)}</div>}</div>
          <div className={isRunning || greenbar ? 'hide':'block-container'}>
-         <h1 className='center-average' >Ao5: {useGetAverage(currSession,times,times[currSession].length - 1,5)}</h1> 
-         <h1 className='center-average12' >Ao12: {useGetAverage(currSession,times,times[currSession].length - 1,12)}</h1> 
          <div className='outer-container'>
           <span>Session | </span>
-          <select value={currSession} onChange={handleSession} >
+          <select className='sessions' value={currSession} onChange={handleSession} >
             {times.map((t,index) =>
               <option value={index}>{index+1}</option>
             )}
             <option value='new' >New</option>
             <option value='delete' >Delete</option>
-            
-          </select>
+            </select>
           <button className='buttons' onClick={deleteTimesHandler}>❌</button>
           <div className='time-flex '>
               <p>#</p>
@@ -320,6 +317,10 @@ const handleSession = (e) => {
           {times[currSession].length > 2 && <p>Running Average: {useGetAverage(currSession,times,times[currSession].length-1,times[currSession].length)}</p>}
           </div>
           </div>
+          <div className='averages-container'>
+         <h1 className='center-average' >Ao5: {useGetAverage(currSession,times,times[currSession].length - 1,5)}</h1> 
+         <h1 className='center-average12' >Ao12: {useGetAverage(currSession,times,times[currSession].length - 1,12)}</h1> 
+         </div>
           </div>
         {/* <button onClick={localStorage.clear()}>Clear cache</button> */}
     </div>
