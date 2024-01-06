@@ -33,9 +33,7 @@ function App() {
     const timesData = JSON.parse(localStorage.getItem('times'))
     const sessionData = JSON.parse(localStorage.getItem('session'))
     const eventsData = JSON.parse(localStorage.getItem('events'))
-    console.log(`prevEventData: ${eventsData}`)
-    console.log(`prevTimesData: ${timesData}`)
-    console.log(`prevSessionData ${sessionData}`)
+
     if(timesData != null) setTimes(timesData)
     if(sessionData != null) setCurrSession(sessionData)
     if(eventsData != null) setEvents(eventsData)
@@ -48,13 +46,7 @@ function App() {
     localStorage.setItem('session',JSON.stringify(currSession));
     localStorage.setItem('events',JSON.stringify(events))
     }
-    console.log(times)
-    console.log(events)
-    console.log(`Active: ${localStorage.getItem('session')}`)
-    
-    setI(true)
-    console.log(currSession)
-    
+
   },[times,currSession,events])
   
  
@@ -197,6 +189,7 @@ useEffect(() => {
 
 
 const useScrambler = async () => {
+  
   setPrevScramble(currScramble)
   if (currScramble === prevScramble){
     setCurrScramble(nextScramble)
@@ -209,13 +202,10 @@ const useScrambler = async () => {
 
 
   useEffect(() => {
-  
-   
-   useScrambler()
-   
-   
-
-},[prevTime,events[currSession]])
+   if(i==true){
+    useScrambler()
+   } 
+},[prevTime,events[currSession],i])
 
 
 useEffect(() => {
@@ -240,13 +230,14 @@ const handleChange = (e) => {
 }
 
 
-// useEffect(() => {
-//   if(currScramble.length >= 175){
-//     setScrambleSize('scramble small')
-//    } else{
-//     setScrambleSize('scramble')
-//    }
-// },[currScramble])
+useEffect(() => {
+  if(currScramble.length >= 175){
+    setScrambleSize('scramble small')
+   } else{
+    setScrambleSize('scramble')
+   }
+   setI(true)
+},[currScramble])
 
 const handleLast = () => {
   if(prevScramble){
