@@ -269,9 +269,9 @@ const handleSession = (e) => {
 
   return (
    
-    <div>
+    <div className='vertical-flex'>
       <div className={isRunning || greenbar ? 'hide':'top-container'}>
-        <h2>TIMER</h2>
+        <h2 className='logo'>TIMER</h2>
         <button className={prevScramble ? 'scramble-buttons' : 'scramble-buttons last'} onClick={handleLast}>Last</button>
          <h1 className= {scrambleSize} >{currScramble}</h1> 
          <button className='scramble-buttons' onClick={useScrambler}>Next</button>
@@ -314,8 +314,13 @@ const handleSession = (e) => {
           
           <Modal key={time.id} currSession={currSession} times={times} setTimes={setTimes} time={time} index={index}></Modal>
           )} 
-          {times[currSession].length > 2 && <p>Running Average: {useGetAverage(currSession,times,times[currSession].length-1,times[currSession].length)}</p>}
+         
           </div>
+          <div>
+          {times[currSession].length > 2 ?  <p className='running-average'>
+            Running Average: {useGetAverage(currSession,times,times[currSession].length-1,times[currSession].length)}
+            </p>: <p>Running Average: --</p>}
+            </div>
           </div>
           <div className='averages-container'>
          <h1 className='center-average' >Ao5: {useGetAverage(currSession,times,times[currSession].length - 1,5)}</h1> 
