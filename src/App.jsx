@@ -11,12 +11,12 @@ import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scrambl
 
 function App() {
   const [time,setTime] = useState(0)
-  const [times,setTimes] = useState([[],[],[],[]])
+  const [times,setTimes] = useState([[],[],[]])
   const [currSession,setCurrSession] = useState(0)
   const [prevTime,setPrevTime] = useState(0)
   const [isRunning,setIsRunning] = useState(false)
   const [greenbar,setGreenbar] = useState(false)
-  const [events,setEvents] = useState(['333','333','333','333'])
+  const [events,setEvents] = useState(['333','333','333'])
   const [currScramble,setCurrScramble] = useState('')
   const [startTime,setStartTime] = useState()
   const [redbar,setRedbar] = useState(false)
@@ -251,6 +251,15 @@ const handleSession = (e) => {
     setTimes([...times,[]])
     setEvents([...events,'333'])
     setCurrSession(times.length)
+  }else if(e.target.value == 'delete'){
+    if(confirm('Are you sure you want to delete this session?')){
+      console.log(currSession)
+      setTimes(times.filter(t => t !== times[currSession] ))
+      setEvents(events.filter((e,index) => index != currSession))
+      if(currSession == times.length-1){
+        setCurrSession(currSession-1)
+      }
+    }
   }else{ 
   setCurrSession(e.target.value)
   }
@@ -292,6 +301,7 @@ const handleSession = (e) => {
               <option value={index}>{index+1}</option>
             )}
             <option value='new' >New</option>
+            <option value='delete' >Delete</option>
             
           </select>
           <button className='buttons' onClick={deleteTimesHandler}>❌</button>
