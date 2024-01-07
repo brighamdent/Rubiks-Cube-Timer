@@ -7,6 +7,7 @@ import { timeFormatter } from './hooks/useTimeFormatter'
 import { Modal } from './Components/Modal'
 import {v4 as uuidv4} from 'uuid';
 import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scramble"
+import logo from './assets/cube-quick.png'
 
 
 function App() {
@@ -271,7 +272,7 @@ const handleSession = (e) => {
    
     <div className='vertical-flex'>
       <div className={isRunning || greenbar ? 'hide':'top-container'}>
-        <h2 className='logo'>TIMER</h2>
+        <img className='logo' src={logo} ></img>
         <button className={prevScramble ? 'scramble-buttons' : 'scramble-buttons last'} onClick={handleLast}>Last</button>
          <h1 className= {scrambleSize} >{currScramble}</h1> 
          <button className='scramble-buttons' onClick={useScrambler}>Next</button>
