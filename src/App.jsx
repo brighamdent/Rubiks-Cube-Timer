@@ -60,8 +60,7 @@ function App() {
 
     },[isRunning,time])
 
-
-
+//handles start
 
 const handleStart = () => {
   setIsRunning(true) 
