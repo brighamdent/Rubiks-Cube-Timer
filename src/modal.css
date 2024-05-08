@@ -1,115 +1,112 @@
 body.active-modal {
-    overflow-y: hidden;
+  overflow-y: hidden;
+}
+.modal {
+  z-index: 5;
 }
 
 .btn-modal {
-    padding: 10px 20px;
-    display: block;
-    margin: 100px auto 0;
-    font-size: 18px;
+  padding: 10px 20px;
+  display: block;
+  margin: 100px auto 0;
+  font-size: 18px;
 }
 
-.modal, .overlay {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
 }
 
 .overlay {
-    background: rgba(49,49,49,0.8);
+  background: rgba(49, 49, 49, 0.8);
 }
 .modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 1.4;
-    background: #f1f1f100;
-    padding: 14px 28px;
-    border-radius: 3px;
-    max-width: 600px;
-    min-width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f100;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 600px;
+  min-width: 300px;
 }
 
 .close-modal {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    padding: 5px 7px;
-    color: rgb(154, 165, 155);
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 5px 7px;
+  color: rgb(154, 165, 155);
 }
 
 .close-modal:hover {
-    background-color:rgb(65, 75, 77) ;
+  background-color: rgb(65, 75, 77);
 }
 
-.modal-button{
-    float: right;
+.modal-button {
+  float: right;
 }
 
-.modal-wrapper{
-    height: 525px;
-    width: 400px;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: rgb(74, 87, 89);
-    text-align: center;
-    
-    
+.modal-wrapper {
+  height: 525px;
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgb(74, 87, 89);
+  text-align: center;
 }
 
-.modal-button{
-    
-    
-    background-color: transparent;
-    border: none;
-    
+.modal-button {
+  background-color: transparent;
+  border: none;
 }
 
-.modal-button:hover{
-    background-color: rgb(221, 195, 160);
+.modal-button:hover {
+  background-color: rgb(221, 195, 160);
 }
 
-.hide{
-    display: none;
-    
+.hide {
+  display: none;
 }
 
-.modal-scramble{
-    padding:7px;
-    background-color:rgb(154, 165, 155);  
-    border-radius: 10px;
+.modal-scramble {
+  padding: 7px;
+  background-color: rgb(154, 165, 155);
+  border-radius: 10px;
 }
-.modifier-buttons{
-    display:flex;
-    justify-content:center;
+.modifier-buttons {
+  display: flex;
+  justify-content: center;
 }
-.modifier-button{
-    color:white;
-    background-color:rgb(154, 165, 155) ;
-    border-color: transparent;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 5px;
-    font-size: x-large;
-    width: 30%;
+.modifier-button {
+  color: white;
+  background-color: rgb(154, 165, 155);
+  border-color: transparent;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+  font-size: x-large;
+  width: 30%;
 }
-.modifier-button:hover{
-    border-color:rgb(123, 133, 124);
-}
-
-.active{
-    background-color: rgb(212, 151, 72) ;
-    
+.modifier-button:hover {
+  border-color: rgb(123, 133, 124);
 }
 
-.modal-title{
-    
-    display:flex;
-    
-    justify-content:center;
+.active {
+  background-color: rgb(212, 151, 72);
 }
+
+.modal-title {
+  display: flex;
+
+  justify-content: center;
+}
+
