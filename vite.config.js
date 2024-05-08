@@ -3,6 +3,6 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "https://brighamdent.github.io/Rubiks-Cube-Timer",
+  base: "https://cubequick.com",
   plugins: [react()],
 });
