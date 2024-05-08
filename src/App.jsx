@@ -298,7 +298,7 @@ function App() {
             <option value="clock">Clock</option>
           </select>
         </div>
-        <div className={isRunning || greenbar ? 'hide' : 'scramble-flex'}>
+        <div className={isRunning || greenbar ? "hide" : "scramble-flex"}>
           <button
             className={
               prevScramble ? "scramble-buttons" : "scramble-buttons last"
@@ -309,25 +309,28 @@ function App() {
           </button>
           <h1 className={scrambleSize}>{currScramble}</h1>
           <button className="scramble-buttons" onClick={useScrambler}>
-           Next
+            Next
           </button>
         </div>
       </div>
       <div>
         {isRunning || greenbar ? (
-          <div className={isRunning ? "time-running" : "time-running green"} onTouchStart={handleStop} >
+          <div
+            className={isRunning ? "time-running" : "time-running green"}
+            onTouchStart={handleStop}
+          >
             <p>{timeFormatter(time)}</p>
           </div>
         ) : (
           <div
             className={greenbar ? "time green" : redbar ? "time red" : "time"}
-              onTouchStart={handleStart}
+            onTouchStart={handleStart}
           >
             {timeFormatter(prevTime)}
           </div>
         )}
       </div>
-        <div className={isRunning || greenbar ? 'hide' : 'outer-container'}>
+      <div className={isRunning || greenbar ? "hide" : "outer-container"}>
         <div>
           <span>Session | </span>
           <select
@@ -345,62 +348,52 @@ function App() {
             ❌
           </button>
         </div>
-          <div className="time-flex ">
-            <p>#</p>
-            <p>Time</p>
-            <p>Ao5</p>
-            <p>Ao12</p>
-          </div>
-          <div id="times-container" className="times-container">
-            {times[currSession] &&
-              times[currSession].map((time, index) => (
-                <Modal
-                  key={time.id}
-                  currSession={currSession}
-                  times={times}
-                  setTimes={setTimes}
-                  time={time}
-                  index={index}
-                ></Modal>
-              ))}
-          </div>
-          <div className="running-average-container">
-            {times[currSession].length > 2 ? (
-              <p className="running-average">
-                Running Average:{" "}
-                {useGetAverage(
-                  currSession,
-                  times,
-                  times[currSession].length - 1,
-                  times[currSession].length,
-                )}
-              </p>
-            ) : (
-              <p>Running Average: --</p>
-            )}
-          </div>
+        <div className="time-flex ">
+          <p>#</p>
+          <p>Time</p>
+          <p>Ao5</p>
+          <p>Ao12</p>
         </div>
-        <div className={ isRunning || greenbar ? "hide" : "averages-container" }>
-          <h1 className="center-average">
-            Ao5:{" "}
-            {useGetAverage(
-              currSession,
-              times,
-              times[currSession].length - 1,
-              5,
-            )}
-          </h1>
-          <h1 className="center-average12">
-            Ao12:{" "}
-            {useGetAverage(
-              currSession,
-              times,
-              times[currSession].length - 1,
-              12,
-            )}
-          </h1>
+        <div id="times-container" className="times-container">
+          {times[currSession] &&
+            times[currSession].map((time, index) => (
+              <Modal
+                key={time.id}
+                currSession={currSession}
+                times={times}
+                setTimes={setTimes}
+                time={time}
+                index={index}
+              ></Modal>
+            ))}
         </div>
-      
+        <div className="running-average-container">
+          {times[currSession].length > 2 ? (
+            <p className="running-average">
+              Running Average:{" "}
+              {useGetAverage(
+                currSession,
+                times,
+                times[currSession].length - 1,
+                times[currSession].length,
+              )}
+            </p>
+          ) : (
+            <p>Running Average: --</p>
+          )}
+        </div>
+      </div>
+      <div className={isRunning || greenbar ? "hide" : "averages-container"}>
+        <h1 className="center-average">
+          Ao5:{" "}
+          {useGetAverage(currSession, times, times[currSession].length - 1, 5)}
+        </h1>
+        <h1 className="center-average12">
+          Ao12:{" "}
+          {useGetAverage(currSession, times, times[currSession].length - 1, 12)}
+        </h1>
+      </div>
+
       {/* <button onClick={localStorage.clear()}>Clear cache</button> */}
     </div>
   );
