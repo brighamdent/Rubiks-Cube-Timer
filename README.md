@@ -2,6 +2,9 @@
 
 Cube Quick is a Rubik's Cube timer and speed solve trainer built using React and Vite. It features World Cube Association-compliant scramble generation, a spacebar-triggered timer, and the ability to track and analyze solving statistics.
 
+
+[View Live Site](https://www.cubequick.com)
+
 ## Features
 
 - **WCA Scramble Generator**: Uses an API to generate random state scrambles as required by the World Cube Association.
