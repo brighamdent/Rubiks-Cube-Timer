@@ -8,6 +8,7 @@ import { Modal } from "./Components/Modal";
 import { v4 as uuidv4 } from "uuid";
 import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scramble";
 import logo from "./assets/cube-quick.png";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
   const [time, setTime] = useState(0);
@@ -27,6 +28,10 @@ function App() {
   const [isLocked, setIsLocked] = useState(false);
   const [isStopped, setIsStopped] = useState(false);
   const [i, setI] = useState(false);
+
+  const { message } = useAuth();
+
+  console.log(message);
 
   useEffect(() => {
     const timesData = JSON.parse(localStorage.getItem("times"));
