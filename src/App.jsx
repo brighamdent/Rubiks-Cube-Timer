@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { useOnKeyPress } from "./hooks/useOnKeyPress";
 import { useOnKeyUp } from "./hooks/useOnKeyUp";
@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scramble";
 import logo from "./assets/cube-quick.png";
 import { useAuth } from "./context/AuthContext";
+import { AuthModal } from "./Components/AuthModal";
 
 function App() {
   const [time, setTime] = useState(0);
@@ -29,10 +30,11 @@ function App() {
   const [isStopped, setIsStopped] = useState(false);
   const [i, setI] = useState(false);
 
-  const { message } = useAuth();
+  const inputRef = useRef(null);
 
-  console.log(message);
-
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   useEffect(() => {
     const timesData = JSON.parse(localStorage.getItem("times"));
     const sessionData = JSON.parse(localStorage.getItem("session"));
@@ -400,6 +402,8 @@ function App() {
       </div>
 
       {/* <button onClick={localStorage.clear()}>Clear cache</button> */}
+      <input ref={inputRef} />
+      <AuthModal />
     </div>
   );
 }
